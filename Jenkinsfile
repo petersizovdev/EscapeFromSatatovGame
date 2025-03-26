@@ -4,14 +4,6 @@ pipeline {
     parameters {
         string(name: 'VERSION', defaultValue: '1.0', description: 'Версия сборки')
     }
-    stages {
-        stage('Deploy') {
-            steps {
-                echo "Деплоим версию ${params.VERSION}"
-                // sh "deploy.sh ${params.VERSION}"  // Пример для реального деплоя
-            }
-        }
-    }
     
     stages {
         stage('Build') {
@@ -24,6 +16,12 @@ pipeline {
             steps {
                 echo 'Запускаем тесты...'
                 sh 'python -m pytest'  // Пример для Python
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo "Деплоим версию ${params.VERSION}"
+                // sh "deploy.sh ${params.VERSION}"  // Пример для реального деплоя
             }
         }
     }
